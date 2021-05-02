@@ -8,5 +8,15 @@ export const Container = styled.View`
 `;
 
 export const Text = styled.Text`
-  color: white;
+  color: black;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const Button = styled.Button`
+  color: black;
+`;
+
+export const TextInput = styled.TextInput`
+  color: black;
 `;
