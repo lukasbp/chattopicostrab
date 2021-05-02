@@ -15,6 +15,7 @@ export const Text = styled.Text`
 
 export const Button = styled.Button`
   color: black;
+  display: block;
 `;
 
 export const TextInput = styled.TextInput`
