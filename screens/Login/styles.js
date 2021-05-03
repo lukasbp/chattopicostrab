@@ -1,12 +1,37 @@
-import styled from 'styled-components/native';
+import { StyleSheet } from 'react-native';
+import metrics from 'helpers/metrics';
+import theme from 'helpers/theme';
 
-export const Container = styled.View`
-  background-color: ${(props) => props.theme.main};
-  flex: 1;
-  justify-content: center;
-  align-items: center;
-`;
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: theme.main,
+    paddingHorizontal: metrics.baseMargin,
+    flex: 1,
+    alignContent: 'center',
+  },
+  title: {
+    flex: 1,
+    textAlign: 'center',
+    color: theme.textSecondary,
+    fontWeight: 'bold',
+    textTransform: 'uppercase',
+    marginTop: metrics.basePadding * 2,
+    fontSize: 18,
+  },
+  inputContainer: {
+    marginTop: metrics.baseMargin,
+    flexDirection: 'row',
+    alignSelf: 'stretch',
+    borderBottomWidth: 2,
+    alignItems: 'center',
+    paddingVertical: 5,
+  },
+  input: {
+    marginLeft: metrics.baseMargin / 2,
+    color: theme.white,
+    flex: 1,
+    fontFamily: 'avenir',
+  },
+});
 
-export const Text = styled.Text`
-  color: white;
-`;
+export default styles;
