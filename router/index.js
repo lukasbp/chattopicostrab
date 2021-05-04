@@ -9,8 +9,8 @@ const Stack = createStackNavigator();
 
 const Router = () => (
   <Stack.Navigator headerMode="none">
-    <Stack.Screen name="Login" component={Login} />
     <Stack.Screen name="Register" component={Register} />
+    <Stack.Screen name="Login" component={Login} />
     <Stack.Screen name="Chats" component={Chats} />
     <Stack.Screen name="Messages" component={Messages} />
   </Stack.Navigator>
