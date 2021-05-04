@@ -56,7 +56,7 @@ const Input = React.forwardRef(
           keyboardType={keyboardType}
           secureTextEntry={secureTextEntry}
         />
-        {msg && <Text style={styles.text}>{msg}</Text>}
+        <Text style={styles.text}>{msg}</Text>
       </View>
     </View>
   )
@@ -79,6 +79,7 @@ Input.defaultProps = {
   secureTextEntry: false,
   label: '',
   labelStyle: {},
+  msg: '',
 };
 
 export default Input;

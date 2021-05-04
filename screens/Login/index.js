@@ -1,13 +1,15 @@
-import Input from 'components/Input/index';
 import React from 'react';
+import Input from 'components/Input/index';
 import { Formik } from 'formik';
-import { View, Text } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import * as yup from 'yup';
 import ButtonFill from 'components/Button/index';
 import styles from './styles';
 
-const Login = () => {
-  const handleSubmit = () => {};
+const Login = ({ navigation }) => {
+  const handleSubmit = () => {
+    navigation.navigate('Chats');
+  };
 
   return (
     <View style={styles.container}>
@@ -15,7 +17,10 @@ const Login = () => {
         <Text style={styles.title}>CHAT TOPICOS</Text>
       </View>
       <Formik
-        initialValues={{}}
+        initialValues={{
+          email: 'luiisflorido@gmail.com',
+          password: '12345678',
+        }}
         onSubmit={handleSubmit}
         validationSchema={yup.object().shape({
           email: yup
@@ -37,7 +42,7 @@ const Login = () => {
               value={values.email}
               onChangeText={handleChange('email')}
               onBlur={() => setFieldTouched('email')}
-              msg={errors.email || ''}
+              msg={errors.email}
             />
             <Input
               label="Senha"
@@ -45,10 +50,18 @@ const Login = () => {
               value={values.password}
               onChangeText={handleChange('password')}
               onBlur={() => setFieldTouched('password')}
-              msg={errors.password || ''}
+              msg={errors.password}
               secureTextEntry
             />
             <ButtonFill title="Entrar" onPress={submitForm} />
+            <TouchableOpacity onPress={() => navigation.navigate('Register')}>
+              <View style={styles.registerContainer}>
+                <Text style={styles.registerText}>
+                  Não tem conta?{' '}
+                  <Text style={styles.registerTextBold}>Cadastre-se</Text>
+                </Text>
+              </View>
+            </TouchableOpacity>
           </View>
         )}
       </Formik>

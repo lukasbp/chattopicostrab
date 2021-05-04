@@ -8,9 +8,26 @@ import Messages from 'screens/Messages/index';
 const Stack = createStackNavigator();
 
 const Router = () => (
-  <Stack.Navigator headerMode="none">
-    <Stack.Screen name="Register" component={Register} />
-    <Stack.Screen name="Login" component={Login} />
+  <Stack.Navigator>
+    <Stack.Screen
+      name="Login"
+      component={Login}
+      options={{ headerShown: false }}
+    />
+    <Stack.Screen
+      name="Register"
+      component={Register}
+      options={{
+        title: 'Registrar',
+        headerStyle: {
+          backgroundColor: '#f4511e',
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+          fontWeight: 'bold',
+        },
+      }}
+    />
     <Stack.Screen name="Chats" component={Chats} />
     <Stack.Screen name="Messages" component={Messages} />
   </Stack.Navigator>

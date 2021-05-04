@@ -41,6 +41,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textDecorationLine: 'underline',
   },
+  form: {
+    marginTop: metrics.basePadding * 2,
+  },
 });
 
 export default styles;

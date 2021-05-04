@@ -1,10 +1,12 @@
 {
     "compilerOptions": {
-      "target": "es6",
       "baseUrl": ".",
       "paths": {
-        "*": ["*"]
+        "components": ["./components"],
+        "assets": ["./assets"],
+        "helpers": ["./helpers"],
+        "router": ["./router"],
+        "screens": ["./screens"]
       }
-    },
-    "exclude": ["node_modules"]
+    }
 }
