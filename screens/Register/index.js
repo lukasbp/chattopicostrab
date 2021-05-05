@@ -71,7 +71,7 @@ const Register = ({ navigation }) => {
                 msg={errors.confirm_password}
                 secureTextEntry
               />
-              <ButtonFill title="Cadastrar" onPress={submitForm} />
+              <ButtonFill style={styles.ButtonFill} title="Cadastrar" onPress={submitForm} />
             </View>
           </ScrollView>
         )}

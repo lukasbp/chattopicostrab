@@ -18,6 +18,9 @@ const styles = StyleSheet.create({
     marginTop: metrics.basePadding * 2,
     fontSize: 18,
   },
+  buttonFill: {
+    color: "crimson"
+  },  
   inputContainer: {
     marginTop: metrics.baseMargin,
     flexDirection: 'row',
