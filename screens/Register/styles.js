@@ -4,7 +4,7 @@ import theme from 'helpers/theme';
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: theme.main,
+    backgroundColor: "black",
     paddingHorizontal: metrics.baseMargin,
     flex: 1,
     alignContent: 'center',
@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
   title: {
     flex: 1,
     textAlign: 'center',
-    color: theme.textSecondary,
+    color: "white",
     fontWeight: 'bold',
     textTransform: 'uppercase',
     marginTop: metrics.basePadding * 2,
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
   },
   registerContainer: { marginTop: metrics.basePadding },
   registerText: {
-    color: theme.textSecondary,
+    color: "white",
     textAlign: 'center',
   },
   registerTextBold: {

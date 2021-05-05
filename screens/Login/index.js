@@ -36,6 +36,7 @@ const Login = ({ navigation }) => {
         {({ values, errors, setFieldTouched, handleChange, submitForm }) => (
           <View style={{ flex: 3 }}>
             <Input
+              styles={styles.Input}
               label="Email"
               keyboardType="email-address"
               returnKeyType="next"
@@ -45,6 +46,7 @@ const Login = ({ navigation }) => {
               msg={errors.email}
             />
             <Input
+              styles={styles.Input}
               label="Senha"
               returnKeyType="done"
               value={values.password}
@@ -53,7 +55,11 @@ const Login = ({ navigation }) => {
               msg={errors.password}
               secureTextEntry
             />
-            <ButtonFill title="Entrar" onPress={submitForm} />
+            <ButtonFill
+              style={styles.buttonFill}
+              title="Entrar"
+              onPress={submitForm}
+            />
             <TouchableOpacity onPress={() => navigation.navigate('Register')}>
               <View style={styles.registerContainer}>
                 <Text style={styles.registerText}>
