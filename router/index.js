@@ -8,7 +8,7 @@ import Messages from 'screens/Messages/index';
 const Stack = createStackNavigator();
 
 const Router = () => (
-  <Stack.Navigator>
+  <Stack.Navigator initialRouteName="Messages">
     <Stack.Screen
       name="Login"
       component={Login}
@@ -28,8 +28,16 @@ const Router = () => (
         },
       }}
     />
-    <Stack.Screen name="Chats" component={Chats} />
-    <Stack.Screen name="Messages" component={Messages} />
+    <Stack.Screen
+      name="Chats"
+      component={Chats}
+      options={{ headerShown: false }}
+    />
+    <Stack.Screen
+      name="Messages"
+      component={Messages}
+      options={{ headerShown: false }}
+    />
   </Stack.Navigator>
 );
 

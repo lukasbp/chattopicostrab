@@ -4,7 +4,7 @@ import theme from 'helpers/theme';
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "black",
+    backgroundColor: theme.main,
     paddingHorizontal: metrics.baseMargin,
     flex: 1,
     alignContent: 'center',
@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
   title: {
     flex: 1,
     textAlign: 'center',
-    color: "white",
+    color: 'white',
     fontWeight: 'bold',
     textTransform: 'uppercase',
     marginTop: metrics.basePadding * 2,
@@ -26,19 +26,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 5,
   },
-  buttonFill:{
-    backgroundColor: "crimson",
-    border: "crimson"
+  buttonFill: {
+    backgroundColor: theme.secondary,
+    borderColor: theme.secondary,
   },
   Input: {
     marginLeft: metrics.baseMargin / 2,
-    color: "white",
+    color: theme.text,
     flex: 1,
     fontFamily: 'avenir',
   },
   registerContainer: { marginTop: metrics.basePadding },
   registerText: {
-    color: "white",
+    color: theme.text,
     textAlign: 'center',
   },
   registerTextBold: {

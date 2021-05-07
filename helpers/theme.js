@@ -1,7 +1,7 @@
 export default {
-  main: '#024eff',
+  main: '#000',
   orange: '#e05a00',
-  secondary: '#E1EAFF',
+  secondary: '#dc143c',
   tomato: '#ff6347',
   text: '#fefefe',
   textSecondary: '#c3c3c3',
