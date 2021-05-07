@@ -8,7 +8,7 @@ import Messages from 'screens/Messages/index';
 const Stack = createStackNavigator();
 
 const Router = () => (
-  <Stack.Navigator initialRouteName="Messages">
+  <Stack.Navigator>
     <Stack.Screen
       name="Login"
       component={Login}
