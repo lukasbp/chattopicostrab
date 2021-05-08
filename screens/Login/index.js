@@ -1,14 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Input from 'components/Input/index';
 import { Formik } from 'formik';
 import { View, Text, TouchableOpacity } from 'react-native';
 import * as yup from 'yup';
 import ButtonFill from 'components/Button/index';
+import { useDispatch, useSelector } from 'react-redux';
+import { Creators as AuthActions } from 'store/ducks/auth';
 import styles from './styles';
 
 const Login = ({ navigation }) => {
-  const handleSubmit = () => {
-    navigation.navigate('Chats');
+  const { loading } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+
+  const handleSubmit = (payload) => {
+    dispatch(AuthActions.login(payload));
   };
 
   return (
@@ -18,14 +23,14 @@ const Login = ({ navigation }) => {
       </View>
       <Formik
         initialValues={{
-          email: 'luiisflorido@gmail.com',
-          password: '12345678',
+          username: 'louis',
+          password: '123456',
         }}
         onSubmit={handleSubmit}
         validationSchema={yup.object().shape({
-          email: yup
+          username: yup
             .string()
-            .email('Email inválido')
+            .min(3, 'Digite ao menos 3 caracteres')
             .required('Campo obrigatório'),
           password: yup
             .string()
@@ -37,13 +42,12 @@ const Login = ({ navigation }) => {
           <View style={{ flex: 3 }}>
             <Input
               styles={styles.Input}
-              label="Email"
-              keyboardType="email-address"
+              label="Usuário"
               returnKeyType="next"
-              value={values.email}
-              onChangeText={handleChange('email')}
-              onBlur={() => setFieldTouched('email')}
-              msg={errors.email}
+              value={values.username}
+              onChangeText={handleChange('username')}
+              onBlur={() => setFieldTouched('username')}
+              msg={errors.username}
             />
             <Input
               styles={styles.Input}
@@ -59,6 +63,7 @@ const Login = ({ navigation }) => {
               style={styles.buttonFill}
               title="Entrar"
               onPress={submitForm}
+              loading={loading}
             />
             <TouchableOpacity onPress={() => navigation.navigate('Register')}>
               <View style={styles.registerContainer}>

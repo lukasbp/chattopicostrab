@@ -1,15 +1,26 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Input from 'components/Input/index';
 import { Formik } from 'formik';
 import { View, ScrollView } from 'react-native';
 import * as yup from 'yup';
 import ButtonFill from 'components/Button/index';
+import { useDispatch, useSelector } from 'react-redux';
+import { Creators as AuthActions } from 'store/ducks/auth';
 import styles from './styles';
 
 const Register = ({ navigation }) => {
-  const handleSubmit = () => {
-    navigation.goBack();
+  const { loading, registerFail } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+
+  const handleSubmit = (payload) => {
+    dispatch(AuthActions.register(payload));
   };
+
+  useEffect(() => {
+    if (registerFail === false) {
+      navigation.goBack();
+    }
+  }, [registerFail]);
 
   return (
     <View style={styles.container}>
@@ -18,10 +29,7 @@ const Register = ({ navigation }) => {
         onSubmit={handleSubmit}
         validationSchema={yup.object().shape({
           name: yup.string().required('Campo obrigatório'),
-          email: yup
-            .string()
-            .email('Email inválido')
-            .required('Campo obrigatório'),
+          username: yup.string().required('Campo obrigatório'),
           password: yup
             .string()
             .min(6, 'Digite ao menos 6 caracteres')
@@ -45,13 +53,12 @@ const Register = ({ navigation }) => {
                 msg={errors.name}
               />
               <Input
-                label="Email"
-                keyboardType="email-address"
+                label="Usuário"
                 returnKeyType="next"
-                value={values.email}
-                onChangeText={handleChange('email')}
-                onBlur={() => setFieldTouched('email')}
-                msg={errors.email}
+                value={values.username}
+                onChangeText={handleChange('username')}
+                onBlur={() => setFieldTouched('username')}
+                msg={errors.username}
               />
               <Input
                 label="Senha"
@@ -71,7 +78,12 @@ const Register = ({ navigation }) => {
                 msg={errors.confirm_password}
                 secureTextEntry
               />
-              <ButtonFill style={styles.ButtonFill} title="Cadastrar" onPress={submitForm} />
+              <ButtonFill
+                style={styles.ButtonFill}
+                title="Cadastrar"
+                onPress={submitForm}
+                loading={loading}
+              />
             </View>
           </ScrollView>
         )}
