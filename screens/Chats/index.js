@@ -5,19 +5,43 @@ import { FontAwesome5 } from '@expo/vector-icons';
 
 // import { Container } from './styles';
 
-const ListChat = () => (
+const ListChat = ({navigation}) => (
   <View style={styles.container}>
     <View style={styles.top}>
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
-          <FontAwesome5 name="caret-square-left" size={24} color="black" />
+          <FontAwesome5 name="caret-square-left" size={24} color="white" />
         </TouchableOpacity>
         <Text style={styles.chat}>Chats</Text>
       </View>
     </View>
       <View style={styles.body}>
-        <Button></Button>
-        <TouchableOpacity>
+        <TouchableOpacity style={styles.contato}>
+            <Image></Image>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.body}>
+        <TouchableOpacity style={styles.contato}>
+            <Image></Image>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.body}>
+        <TouchableOpacity style={styles.contato}>
+            <Image></Image>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.body}>
+        <TouchableOpacity style={styles.contato}>
+            <Image></Image>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.body}>
+        <TouchableOpacity style={styles.contato}>
+            <Image></Image>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.body}>
+        <TouchableOpacity style={styles.contato}>
             <Image></Image>
         </TouchableOpacity>
       </View>
