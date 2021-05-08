@@ -6,7 +6,7 @@ import Messages from 'screens/Messages/index';
 const Stack = createStackNavigator();
 
 const AuthStack = () => (
-  <>
+  <Stack.Navigator>
     <Stack.Screen
       name="Chats"
       component={Chats}
@@ -17,7 +17,7 @@ const AuthStack = () => (
       component={Messages}
       options={{ headerShown: false }}
     />
-  </>
+  </Stack.Navigator>
 );
 
 export default AuthStack;

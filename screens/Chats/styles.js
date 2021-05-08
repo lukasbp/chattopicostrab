@@ -17,12 +17,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   body: {
-    flex: 3,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'black',
-    borderBottomColor: 'crimson',
-    borderBottomWidth: 1,
+    flex: 8,
   },
   top: {
     flex: 1,
@@ -30,12 +25,22 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
     justifyContent: 'center',
     alignItems: 'center',
-    borderBottomWidth: 1,
-    borderBottomColor: 'crimson',
+  },
+  contatoContainer: {
+    height: 70,
+    borderBottomColor: theme.text,
+    borderBottomWidth: 0.5,
   },
   contato: {
-    borderBottomColor: 'crimson',
-    borderBottomWidth: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    flex: 1,
+  },
+  contatoText: {
+    color: theme.text,
+    paddingLeft: metrics.basePadding,
+    fontFamily: 'AvenirBold',
+    fontSize: 17,
   },
   chat: {
     paddingLeft: metrics.basePadding,
@@ -44,6 +49,28 @@ const styles = StyleSheet.create({
     color: 'white',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: theme.darker,
+  },
+  chatContainer: {
+    flex: 1,
+    backgroundColor: theme.darker,
+  },
+  touchableContainer: {
+    flex: 1,
+    flexDirection: 'row',
+  },
+  lastContainer: {
+    paddingLeft: metrics.basePadding * 2,
+  },
+  lastText: {
+    fontSize: 11,
+    color: theme.text,
+    paddingBottom: metrics.basePadding,
   },
 });
 

@@ -1,50 +1,83 @@
+import React, { useCallback, useEffect } from 'react';
+import { Text, TouchableOpacity, View } from 'react-native';
+import Loading from 'components/Loading';
+import { useDispatch, useSelector } from 'react-redux';
+import { Creators as ChatsActions } from 'store/ducks/chat';
+import { Creators as AuthActions } from 'store/ducks/auth';
 import styles from './styles';
-import React from 'react';
-import { Button, Image, Text, TouchableOpacity, View } from 'react-native';
-import { FontAwesome5 } from '@expo/vector-icons';
+import ChatItem from './ChatItem';
 
-// import { Container } from './styles';
+const ListChat = ({ navigation }) => {
+  const { loading, data } = useSelector((state) => state.chat);
+  const { data: authData } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
 
-const ListChat = ({navigation}) => (
-  <View style={styles.container}>
-    <View style={styles.top}>
-      <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <FontAwesome5 name="caret-square-left" size={24} color="white" />
+  useEffect(() => {
+    dispatch(ChatsActions.chats());
+  }, []);
+
+  const logout = () => {
+    dispatch(AuthActions.logout());
+  };
+
+  const renderItems = useCallback(() => {
+    if (data?.length) {
+      return data?.map((e) => {
+        const userId = authData?.data?.user?.id;
+        const toUserName =
+          e?.to_user_id === userId ? e?.from?.name : e?.to?.name;
+        return (
+          <View key={e.id} style={styles.chatContainer}>
+            <ChatItem
+              name={toUserName}
+              lastMessage={e?.messages?.[0]?.text || 'Sem mensagem...'}
+              onPress={() =>
+                navigation.navigate('Messages', { id: e.id, name: toUserName })
+              }
+            />
+          </View>
+        );
+      });
+    }
+    return (
+      <View style={styles.chatContainer}>
+        <Text style={[styles.chat, { textAlign: 'center', paddingTop: 10 }]}>
+          Nenhum chat encontrado.
+        </Text>
+      </View>
+    );
+  }, [data]);
+
+  return (
+    <View style={styles.container}>
+      <View style={styles.top}>
+        <View style={styles.header}>
+          <Text style={styles.chat}>Chats</Text>
+        </View>
+      </View>
+      <View style={styles.body}>
+        {loading ? (
+          <View style={styles.loadingContainer}>
+            <Loading loading={loading} />
+          </View>
+        ) : (
+          renderItems()
+        )}
+        <TouchableOpacity
+          style={{
+            position: 'absolute',
+            backgroundColor: 'red',
+            bottom: 5,
+            left: 10,
+            borderRadius: 10,
+            padding: 10,
+          }}
+          onPress={logout}
+        >
+          <Text style={{ color: 'white', fontWeight: 'bold' }}>DESLOGAR</Text>
         </TouchableOpacity>
-        <Text style={styles.chat}>Chats</Text>
       </View>
     </View>
-      <View style={styles.body}>
-        <TouchableOpacity style={styles.contato}>
-            <Image></Image>
-        </TouchableOpacity>
-      </View>
-      <View style={styles.body}>
-        <TouchableOpacity style={styles.contato}>
-            <Image></Image>
-        </TouchableOpacity>
-      </View>
-      <View style={styles.body}>
-        <TouchableOpacity style={styles.contato}>
-            <Image></Image>
-        </TouchableOpacity>
-      </View>
-      <View style={styles.body}>
-        <TouchableOpacity style={styles.contato}>
-            <Image></Image>
-        </TouchableOpacity>
-      </View>
-      <View style={styles.body}>
-        <TouchableOpacity style={styles.contato}>
-            <Image></Image>
-        </TouchableOpacity>
-      </View>
-      <View style={styles.body}>
-        <TouchableOpacity style={styles.contato}>
-            <Image></Image>
-        </TouchableOpacity>
-      </View>
-  </View>
-);
+  );
+};
 export default ListChat;

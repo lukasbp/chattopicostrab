@@ -8,6 +8,7 @@ export const Types = {
   REGISTER_REQUEST: 'REGISTER_REQUEST',
   REGISTER_REQUEST_SUCCESS: 'REGISTER_REQUEST_SUCCESS',
   REGISTER_REQUEST_FAIL: 'REGISTER_REQUEST_FAIL',
+  LOGOUT: 'LOGOUT',
 };
 
 const INITIAL_STATE = {
@@ -36,12 +37,18 @@ export default function auth(state = INITIAL_STATE, action) {
       return { ...state, loading: false, registerFail: false };
     case Types.REGISTER_REQUEST_FAIL:
       return { ...state, loading: false, registerFail: true };
+    case Types.LOGOUT: {
+      return { ...state, loading: false, registerFail: null, data: null };
+    }
     default:
       return state;
   }
 }
 
 export const Creators = {
+  logout: () => ({
+    type: Types.LOGOUT,
+  }),
   login: (payload) => ({
     type: Types.LOGIN_REQUEST,
     payload,

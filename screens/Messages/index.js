@@ -2,25 +2,37 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import { GiftedChat } from 'react-native-gifted-chat';
 import { FontAwesome5 } from '@expo/vector-icons';
+import dayjs from 'dayjs';
+import { useDispatch, useSelector } from 'react-redux';
+import { Creators as ChatsActions } from 'store/ducks/chat';
 import styles from './styles';
 
-const Messages = ({ navigation }) => {
+const Messages = ({ navigation, route }) => {
+  const id = route?.params?.id;
   const [messages, setMessages] = useState([]);
+  const dispatch = useDispatch();
+  const { loading, msgs } = useSelector((state) => state.chat);
 
   useEffect(() => {
-    setMessages([
-      {
-        _id: 1,
-        text: 'Hello developer',
-        createdAt: new Date(),
-        user: {
-          _id: 2,
-          name: 'React Native',
-          avatar: 'https://placeimg.com/140/140/any',
-        },
-      },
-    ]);
+    dispatch(ChatsActions.messages(id));
   }, []);
+
+  useEffect(() => {
+    if (msgs?.length) {
+      setMessages(
+        msgs?.map((e) => ({
+          _id: e.id,
+          text: e.text,
+          createdAt: dayjs(e.created_at).toDate(),
+          user: {
+            _id: e.user_id,
+            name: 'React Native',
+            avatar: 'https://placeimg.com/140/140/any',
+          },
+        }))
+      );
+    }
+  }, [msgs]);
 
   const onSend = useCallback((msgs = []) => {
     setMessages((previousMessages) =>
@@ -39,7 +51,7 @@ const Messages = ({ navigation }) => {
           </TouchableOpacity>
         </View>
         <View style={{ flex: 12 }}>
-          <Text style={styles.chatName}>LUIS GUILHERME S F</Text>
+          <Text style={styles.chatName}>{route?.params?.name}</Text>
         </View>
       </View>
       <View style={styles.bottom}>

@@ -8,11 +8,14 @@ function* login({ payload }) {
   try {
     const { status, data } = yield call(api.post, '/login', payload);
     if (status === 200) {
-      yield call(AsyncStorage.setItem, 'token', data.token);
-      yield call(AsyncStorage.setItem, 'refresh-token', data.refreshToken);
+      yield call(AsyncStorage.multiSet, [
+        ['token', data.token],
+        ['refresh-token', data.refreshToken],
+      ]);
       yield put(AuthActions.loginSuccess(data));
     }
   } catch (e) {
+    console.log;
     let msg = '';
     if (e?.response?.data?.[0]?.message || e?.response?.data?.message) {
       msg = e?.response?.data?.[0]?.message || e?.response?.data?.message;
@@ -48,6 +51,10 @@ function* register({ payload }) {
   }
 }
 
+function* logout() {
+  yield call(AsyncStorage.multiRemove, ['token', 'refresh-token']);
+}
+
 function* loginWatcher() {
   yield takeLatest(AuthTypes.LOGIN_REQUEST, login);
 }
@@ -60,10 +67,15 @@ function* refreshLoginWatcher() {
   yield takeLatest(AuthTypes.REFRESH_LOGIN_REQUEST, login);
 }
 
+function* logoutWatcher() {
+  yield takeLatest(AuthTypes.LOGOUT, logout);
+}
+
 export default function* rootSaga() {
   yield all([
     fork(loginWatcher),
     fork(registerWatcher),
     fork(refreshLoginWatcher),
+    fork(logoutWatcher),
   ]);
 }
