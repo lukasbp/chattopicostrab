@@ -9,7 +9,7 @@ const reactotronConfigure = () => {
     const tron = Reactotron.configure({ host: getLocalIP() })
       .useReactNative({
         networking: {
-          ignoreUrls: /symbolicate|logs|socket.io/,
+          ignoreUrls: /symbolicate|logs/,
         },
       })
       .use(overlay())

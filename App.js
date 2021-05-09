@@ -1,3 +1,4 @@
+// import 'helpers/window';
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { View } from 'react-native';
@@ -7,7 +8,7 @@ import { useFonts } from 'expo-font';
 import Constants from 'expo-constants';
 import { ThemeProvider } from 'styled-components';
 import Router from 'router/index';
-import XProvider from 'components/Provider/index';
+import SocketProvider from 'components/SocketProvider';
 import { theme } from 'helpers/index';
 import store from 'store';
 import FlashMessage from 'react-native-flash-message';
@@ -26,7 +27,7 @@ export default function App() {
 
   return (
     <Provider store={store}>
-      <XProvider>
+      <SocketProvider>
         <NavigationContainer ref={navigationRef}>
           <ThemeProvider theme={theme}>
             <StatusBar backgroundColor={theme.main} barStyle="dark-content" />
@@ -41,7 +42,7 @@ export default function App() {
             </View>
           </ThemeProvider>
         </NavigationContainer>
-      </XProvider>
+      </SocketProvider>
       <FlashMessage position="bottom" />
     </Provider>
   );

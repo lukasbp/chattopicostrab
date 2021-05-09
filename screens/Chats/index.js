@@ -23,7 +23,7 @@ const ListChat = ({ navigation }) => {
   const renderItems = useCallback(() => {
     if (data?.length) {
       return data?.map((e) => {
-        const userId = authData?.data?.user?.id;
+        const userId = authData?.user?.id;
         const toUserName =
           e?.to_user_id === userId ? e?.from?.name : e?.to?.name;
         return (
