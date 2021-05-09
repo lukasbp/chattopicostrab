@@ -1,9 +1,11 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useContext, useEffect } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import Loading from 'components/Loading';
 import { useDispatch, useSelector } from 'react-redux';
 import { Creators as ChatsActions } from 'store/ducks/chat';
 import { Creators as AuthActions } from 'store/ducks/auth';
+import { SocketContext } from 'components/SocketProvider';
+import { theme } from 'helpers';
 import styles from './styles';
 import ChatItem from './ChatItem';
 
@@ -11,6 +13,7 @@ const ListChat = ({ navigation }) => {
   const { loading, data } = useSelector((state) => state.chat);
   const { data: authData } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+  const { socket } = useContext(SocketContext);
 
   useEffect(() => {
     dispatch(ChatsActions.chats());
@@ -48,11 +51,28 @@ const ListChat = ({ navigation }) => {
     );
   }, [data]);
 
+  const socketText = () => {
+    if (!socket) {
+      return (
+        <Text style={[styles.chat, { fontSize: 14, color: theme.orange }]}>
+          Conectando ao socket...
+        </Text>
+      );
+    }
+
+    return (
+      <Text style={[styles.chat, { fontSize: 14 }]}>
+        Socket <Text style={{ color: theme.green }}>conectado</Text>
+      </Text>
+    );
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.top}>
         <View style={styles.header}>
           <Text style={styles.chat}>Chats</Text>
+          {socketText()}
         </View>
       </View>
       <View style={styles.body}>

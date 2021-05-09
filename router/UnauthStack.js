@@ -1,4 +1,5 @@
 import { createStackNavigator } from '@react-navigation/stack';
+import { theme } from 'helpers';
 import React from 'react';
 import Login from 'screens/Login/index';
 import Register from 'screens/Register/index';
@@ -18,7 +19,7 @@ const UnauthStack = () => (
       options={{
         title: 'Registrar',
         headerStyle: {
-          backgroundColor: '#f4511e',
+          backgroundColor: theme.secondary,
         },
         headerTintColor: '#fff',
         headerTitleStyle: {

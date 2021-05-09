@@ -20,6 +20,11 @@ const styles = StyleSheet.create({
     fontFamily: 'Avenir',
     fontSize: 18,
   },
+  socketText: {
+    paddingLeft: metrics.basePadding,
+    fontFamily: 'Avenir',
+    fontSize: 11,
+  },
   bottom: {
     flex: 8,
   },

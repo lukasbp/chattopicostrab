@@ -22,11 +22,25 @@ const Messages = ({ navigation, route }) => {
   useEffect(() => {
     dispatch(ChatsActions.messages(id));
     if (socket && !subscribe) {
-      const subscribeChat = socket?.subscribe(`chat:${id}`);
-      subscribeChat.on('ready', (data) => {
-        setSubscribe(data);
-      });
+      const alreadyExistsSubscribe = socket.getSubscription(`chat:${id}`);
+      console.tron.log('SUBSCRIBE', alreadyExistsSubscribe);
+      if (!alreadyExistsSubscribe) {
+        const subscribeChat = socket?.subscribe(`chat:${id}`);
+        subscribeChat.on('ready', (data) => {
+          console.tron.log('READY');
+          setSubscribe(data);
+        });
+      } else {
+        setSubscribe(alreadyExistsSubscribe);
+      }
     }
+    return () => {
+      console.tron.log('UNSUBSCRIBE', subscribe, socket);
+      if (socket) {
+        console.tron.log('UNSUBSCRIBE1');
+        socket?.off(`chat:${id}`, () => {});
+      }
+    };
   }, []);
 
   useEffect(() => {
@@ -77,6 +91,14 @@ const Messages = ({ navigation, route }) => {
     [subscribe]
   );
 
+  const renderSocketText = () => {
+    if (!subscribe) {
+      return <Text style={styles.socketText}>Conectado a sala do socket.</Text>;
+    }
+
+    return <Text style={styles.socketText}>Socket conectado</Text>;
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.top}>
@@ -89,6 +111,7 @@ const Messages = ({ navigation, route }) => {
         </View>
         <View style={{ flex: 12 }}>
           <Text style={styles.chatName}>{route?.params?.name}</Text>
+          {renderSocketText()}
         </View>
       </View>
       <View style={styles.bottom}>

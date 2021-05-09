@@ -10,7 +10,7 @@ import styles from './styles';
 const ButtonFill = ({
   title = '',
   icon,
-  color = theme.orange,
+  color = theme.secondary,
   fontColor = theme.text,
   onPress = () => {},
   disabled = false,

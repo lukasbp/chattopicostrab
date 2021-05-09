@@ -9,10 +9,10 @@ const styles = StyleSheet.create({
   },
   header: {
     flex: 1,
-    flexDirection: 'row',
+    flexDirection: 'column',
     marginRight: 'auto',
     alignSelf: 'flex-start',
-    alignItems: 'center',
+    justifyContent: 'center',
     backgroundColor: 'black',
     marginLeft: 10,
   },
