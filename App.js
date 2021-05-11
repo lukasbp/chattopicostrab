@@ -34,7 +34,7 @@ export default function App() {
             <View
               style={{
                 flex: 1,
-                paddingTop: Constants.statusBarHeight,
+                paddingTop: Constants.statusBarHeight + 10,
                 backgroundColor: theme.primary,
               }}
             >

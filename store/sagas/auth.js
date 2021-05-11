@@ -51,6 +51,29 @@ function* register({ payload }) {
   }
 }
 
+function* updateUser({ payload }) {
+  try {
+    const { status, data } = yield call(api.put, '/user', payload);
+    if (status === 200) {
+      showMessage({
+        message: `Perfil atualizado com sucesso!`,
+        type: 'success',
+      });
+      yield put(AuthActions.updateUserSuccess(data));
+    }
+  } catch (e) {
+    let msg = '';
+    if (e?.response?.data?.[0]?.message || e?.response?.data?.message) {
+      msg = e?.response?.data?.[0]?.message || e?.response?.data?.message;
+    }
+    showMessage({
+      message: `Erro ao atualizar perfil!\n${msg}`,
+      type: 'danger',
+    });
+    yield put(AuthActions.updateUserFail());
+  }
+}
+
 function* logout() {
   yield call(AsyncStorage.multiRemove, ['token', 'refresh-token']);
 }
@@ -67,6 +90,10 @@ function* refreshLoginWatcher() {
   yield takeLatest(AuthTypes.REFRESH_LOGIN_REQUEST, login);
 }
 
+function* updateUserWatcher() {
+  yield takeLatest(AuthTypes.UPDATE_USER_REQUEST, updateUser);
+}
+
 function* logoutWatcher() {
   yield takeLatest(AuthTypes.LOGOUT, logout);
 }
@@ -76,6 +103,7 @@ export default function* rootSaga() {
     fork(loginWatcher),
     fork(registerWatcher),
     fork(refreshLoginWatcher),
+    fork(updateUserWatcher),
     fork(logoutWatcher),
   ]);
 }

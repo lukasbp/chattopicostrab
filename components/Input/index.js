@@ -34,13 +34,14 @@ const Input = React.forwardRef(
           styles.inputContainer,
           style,
           focused ? { borderColor: '#FDB913' } : null,
+          disabled ? { borderColor: '#ffffffaa' } : null,
         ]}
       >
         <TextInput
           {...rest}
           blurOnSubmit={blurSubmit}
           returnKeyType={returnKeyType}
-          disabled={disabled}
+          editable={!disabled}
           style={[styles.input, textStyle]}
           autoCapitalize={autoCapitalize}
           autoCorrect={false}

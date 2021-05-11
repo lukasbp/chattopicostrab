@@ -24,6 +24,7 @@ const styles = StyleSheet.create({
     paddingLeft: metrics.basePadding,
     fontFamily: 'Avenir',
     fontSize: 11,
+    color: theme.green,
   },
   bottom: {
     flex: 8,

@@ -6,6 +6,7 @@ import dayjs from 'dayjs';
 import { useDispatch, useSelector } from 'react-redux';
 import { Creators as ChatsActions } from 'store/ducks/chat';
 import { SocketContext } from 'components/SocketProvider';
+import { theme } from 'helpers';
 import styles from './styles';
 
 const Messages = ({ navigation, route }) => {
@@ -42,6 +43,22 @@ const Messages = ({ navigation, route }) => {
       }
     };
   }, []);
+
+  useEffect(() => {
+    if (socket) {
+      const alreadyExistsSubscribe = socket.getSubscription(`chat:${id}`);
+      console.tron.log('SUBSCRIBE', alreadyExistsSubscribe);
+      if (!alreadyExistsSubscribe) {
+        const subscribeChat = socket?.subscribe(`chat:${id}`);
+        subscribeChat.on('ready', (data) => {
+          console.tron.log('READY');
+          setSubscribe(data);
+        });
+      } else {
+        setSubscribe(alreadyExistsSubscribe);
+      }
+    }
+  }, [socket]);
 
   useEffect(() => {
     if (subscribe) {
@@ -92,8 +109,12 @@ const Messages = ({ navigation, route }) => {
   );
 
   const renderSocketText = () => {
-    if (!subscribe) {
-      return <Text style={styles.socketText}>Conectado a sala do socket.</Text>;
+    if (!socket || !subscribe) {
+      return (
+        <Text style={[styles.socketText, { color: theme.orange }]}>
+          Conectando a sala do socket.
+        </Text>
+      );
     }
 
     return <Text style={styles.socketText}>Socket conectado</Text>;

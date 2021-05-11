@@ -51,6 +51,10 @@ const ListChat = ({ navigation }) => {
     );
   }, [data]);
 
+  const myProfile = () => {
+    navigation.navigate('Profile');
+  };
+
   const socketText = () => {
     if (!socket) {
       return (
@@ -95,6 +99,19 @@ const ListChat = ({ navigation }) => {
           onPress={logout}
         >
           <Text style={{ color: 'white', fontWeight: 'bold' }}>DESLOGAR</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{
+            position: 'absolute',
+            backgroundColor: 'blue',
+            bottom: 5,
+            right: 10,
+            borderRadius: 10,
+            padding: 10,
+          }}
+          onPress={myProfile}
+        >
+          <Text style={{ color: 'white', fontWeight: 'bold' }}>MEU PERFIL</Text>
         </TouchableOpacity>
       </View>
     </View>

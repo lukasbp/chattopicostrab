@@ -8,12 +8,16 @@ export const Types = {
   REGISTER_REQUEST: 'REGISTER_REQUEST',
   REGISTER_REQUEST_SUCCESS: 'REGISTER_REQUEST_SUCCESS',
   REGISTER_REQUEST_FAIL: 'REGISTER_REQUEST_FAIL',
+  UPDATE_USER_REQUEST: 'UPDATE_USER_REQUEST',
+  UPDATE_USER_SUCCESS: 'UPDATE_USER_SUCCESS',
+  UPDATE_USER_FAIL: 'UPDATE_USER_FAIL',
   LOGOUT: 'LOGOUT',
 };
 
 const INITIAL_STATE = {
   loading: false,
   data: null,
+  updateFail: null,
   registerFail: null,
 };
 
@@ -37,6 +41,16 @@ export default function auth(state = INITIAL_STATE, action) {
       return { ...state, loading: false, registerFail: false };
     case Types.REGISTER_REQUEST_FAIL:
       return { ...state, loading: false, registerFail: true };
+    case Types.UPDATE_USER_REQUEST:
+      return { ...state, loading: true };
+    case Types.UPDATE_USER_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        data: { ...state.data, user: action.payload },
+      };
+    case Types.UPDATE_USER_FAIL:
+      return { ...state, loading: false };
     case Types.LOGOUT: {
       return { ...state, loading: false, registerFail: null, data: null };
     }
@@ -81,5 +95,16 @@ export const Creators = {
   }),
   registerFail: () => ({
     type: Types.REGISTER_REQUEST_FAIL,
+  }),
+  updateUser: (payload) => ({
+    type: Types.UPDATE_USER_REQUEST,
+    payload,
+  }),
+  updateUserSuccess: (payload) => ({
+    type: Types.UPDATE_USER_SUCCESS,
+    payload,
+  }),
+  updateUserFail: () => ({
+    type: Types.UPDATE_USER_FAIL,
   }),
 };
