@@ -16,6 +16,7 @@ export const Types = {
 
 const INITIAL_STATE = {
   loading: false,
+  refreshLoading: false,
   data: null,
   updateFail: null,
   registerFail: null,
@@ -30,11 +31,11 @@ export default function auth(state = INITIAL_STATE, action) {
     case Types.LOGIN_REQUEST_FAIL:
       return { ...state, loading: false };
     case Types.REFRESH_LOGIN_REQUEST:
-      return { ...state, loading: true };
+      return { ...state, refreshLoading: true };
     case Types.REFRESH_LOGIN_REQUEST_SUCCESS:
-      return { ...state, loading: false, data: action.payload };
+      return { ...state, refreshLoading: false, data: action.payload };
     case Types.REFRESH_LOGIN_REQUEST_FAIL:
-      return { ...state, loading: false };
+      return { ...state, refreshLoading: false };
     case Types.REGISTER_REQUEST:
       return { ...state, loading: true, registerFail: null };
     case Types.REGISTER_REQUEST_SUCCESS:
@@ -77,6 +78,7 @@ export const Creators = {
   refresh: (payload) => ({
     type: Types.REFRESH_LOGIN_REQUEST,
     payload,
+    isRefresh: true,
   }),
   refreshSuccess: (payload) => ({
     type: Types.REFRESH_LOGIN_REQUEST_SUCCESS,

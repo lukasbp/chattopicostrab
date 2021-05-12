@@ -9,15 +9,8 @@ import UnauthStack from './UnauthStack';
 const Stack = createStackNavigator();
 
 const Router = () => {
-  const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
-  const { data, loading: refreshLoading } = useSelector((state) => state.auth);
-
-  useEffect(() => {
-    if (!refreshLoading) {
-      setLoading(false);
-    }
-  }, [refreshLoading]);
+  const { data, refreshLoading } = useSelector((state) => state.auth);
 
   useEffect(() => {
     const refresh = async () => {
@@ -29,7 +22,7 @@ const Router = () => {
     refresh();
   }, []);
 
-  if (loading || refreshLoading) {
+  if (refreshLoading) {
     return null;
   }
 

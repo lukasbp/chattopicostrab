@@ -4,7 +4,8 @@ import { all, call, fork, put, takeLatest } from 'redux-saga/effects';
 import { api } from 'services/api';
 import { Creators as AuthActions, Types as AuthTypes } from 'store/ducks/auth';
 
-function* login({ payload }) {
+function* login({ payload, isRefresh = false }) {
+  console.tron.log('AAAA', payload, isRefresh);
   try {
     const { status, data } = yield call(api.post, '/login', payload);
     if (status === 200) {
@@ -12,19 +13,18 @@ function* login({ payload }) {
         ['token', data.token],
         ['refresh-token', data.refreshToken],
       ]);
-      yield put(AuthActions.loginSuccess(data));
+      yield put(
+        isRefresh
+          ? AuthActions.refreshSuccess(data)
+          : AuthActions.loginSuccess(data)
+      );
     }
   } catch (e) {
-    console.log;
-    let msg = '';
-    if (e?.response?.data?.[0]?.message || e?.response?.data?.message) {
-      msg = e?.response?.data?.[0]?.message || e?.response?.data?.message;
-    }
     showMessage({
-      message: `Erro ao efetuar login!\n${msg}`,
+      message: `Erro ao efetuar login! Confira seu usuário e senha e tente novamente`,
       type: 'danger',
     });
-    yield put(AuthActions.loginFail());
+    yield put(isRefresh ? AuthActions.refreshFail() : AuthActions.loginFail());
   }
 }
 

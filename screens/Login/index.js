@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Input from 'components/Input/index';
 import { Formik } from 'formik';
 import { View, Text, TouchableOpacity } from 'react-native';
@@ -23,8 +23,8 @@ const Login = ({ navigation }) => {
       </View>
       <Formik
         initialValues={{
-          username: 'louis',
-          password: '123456',
+          username: '',
+          password: '',
         }}
         onSubmit={handleSubmit}
         validationSchema={yup.object().shape({

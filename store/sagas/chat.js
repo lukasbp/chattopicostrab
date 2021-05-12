@@ -33,6 +33,27 @@ function* messages({ payload }) {
   }
 }
 
+function* add({ payload }) {
+  try {
+    const { status } = yield call(api.post, `/chats/${payload}`);
+    if (status === 200) {
+      showMessage({
+        message: 'Adicionado com sucesso!',
+        type: 'success',
+      });
+      yield put(ChatActions.addSuccess());
+      yield put(ChatActions.chats());
+    }
+  } catch (e) {
+    const msg = e?.response?.data?.message;
+    showMessage({
+      message: `Erro ao adicionar!\n${msg}`,
+      type: 'danger',
+    });
+    yield put(ChatActions.addFail());
+  }
+}
+
 function* chatsWatcher() {
   yield takeLatest(ChatTypes.CHATS_REQUEST, chats);
 }
@@ -41,6 +62,10 @@ function* messagesWatcher() {
   yield takeLatest(ChatTypes.MESSAGES_REQUEST, messages);
 }
 
+function* addWatcher() {
+  yield takeLatest(ChatTypes.ADD_REQUEST, add);
+}
+
 export default function* rootSaga() {
-  yield all([fork(chatsWatcher), fork(messagesWatcher)]);
+  yield all([fork(chatsWatcher), fork(messagesWatcher), fork(addWatcher)]);
 }

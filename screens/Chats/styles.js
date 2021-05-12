@@ -1,7 +1,6 @@
 import { StyleSheet } from 'react-native';
 import metrics from 'helpers/metrics';
 import theme from 'helpers/theme';
-import { color } from 'react-native-reanimated';
 
 const styles = StyleSheet.create({
   container: {
@@ -18,6 +17,7 @@ const styles = StyleSheet.create({
   },
   body: {
     flex: 8,
+    backgroundColor: theme.darker,
   },
   top: {
     flex: 1,
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     backgroundColor: theme.darker,
   },
   chatContainer: {
-    flex: 1,
+    // flex: 1,
     backgroundColor: theme.darker,
   },
   touchableContainer: {

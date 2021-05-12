@@ -5,6 +5,9 @@ export const Types = {
   MESSAGES_REQUEST: 'MESSAGES_REQUEST',
   MESSAGES_REQUEST_SUCCESS: 'MESSAGES_REQUEST_SUCCESS',
   MESSAGES_REQUEST_FAIL: 'MESSAGES_REQUEST_FAIL',
+  ADD_REQUEST: 'ADD_REQUEST',
+  ADD_REQUEST_SUCCESS: 'ADD_REQUEST_SUCCESS',
+  ADD_REQUEST_FAIL: 'ADD_REQUEST_FAIL',
 };
 
 const INITIAL_STATE = {
@@ -26,6 +29,12 @@ export default function chat(state = INITIAL_STATE, action) {
     case Types.MESSAGES_REQUEST_SUCCESS:
       return { ...state, loading: false, msgs: action.payload };
     case Types.MESSAGES_REQUEST_FAIL:
+      return { ...state, loading: false };
+    case Types.ADD_REQUEST:
+      return { ...state, loading: true };
+    case Types.ADD_REQUEST_SUCCESS:
+      return { ...state, loading: false };
+    case Types.ADD_REQUEST_FAIL:
       return { ...state, loading: false };
     default:
       return state;
@@ -53,5 +62,15 @@ export const Creators = {
   }),
   messagesFail: () => ({
     type: Types.MESSAGES_REQUEST_FAIL,
+  }),
+  add: (payload) => ({
+    type: Types.ADD_REQUEST,
+    payload,
+  }),
+  addSuccess: () => ({
+    type: Types.ADD_REQUEST_SUCCESS,
+  }),
+  addFail: () => ({
+    type: Types.ADD_REQUEST_FAIL,
   }),
 };
